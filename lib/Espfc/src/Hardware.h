@@ -9,6 +9,7 @@
 #include "Device/GyroDevice.h"
 #include "Device/GyroMPU6050.h"
 #include "Device/GyroMPU9250.h"
+#include "Device/GyroMPU6500.h"
 #include "Device/MagHMC5338L.h"
 #include "Device/MagAK8963.h"
 #include "Device/BaroDevice.h"
@@ -20,6 +21,7 @@ namespace {
   static Espfc::Device::BusI2C i2cBus;
   static Espfc::Device::GyroMPU6050 mpu6050;
   static Espfc::Device::GyroMPU9250 mpu9250;
+  static Espfc::Device::GyroMPU6500 mpu6500;
   static Espfc::Device::MagHMC5338L hmc5883l;
   static Espfc::Device::MagAK8963 ak8963;
   static Espfc::Device::BaroBMP085 bmp085;
@@ -76,6 +78,9 @@ class Hardware
         pinMode(_model.config.pin[PIN_SPI_CS0], OUTPUT);
         digitalWrite(_model.config.pin[PIN_SPI_CS0], HIGH);
         if(!detectedGyro && detectDevice(mpu9250, spiBus, _model.config.pin[PIN_SPI_CS0])) detectedGyro = &mpu9250;
+        
+        if(!detectedGyro && detectDevice(mpu6500, spiBus, _model.config.pin[PIN_SPI_CS0])) detectedGyro = &mpu6500;
+
       }
 #endif
       if(_model.config.pin[PIN_I2C_0_SDA] != -1 && _model.config.pin[PIN_I2C_0_SCL] != -1)
