@@ -51,18 +51,6 @@ class GyroMPU6500: public GyroMPU6050
       setClockSource(MPU6050_CLOCK_PLL_XGYRO);
       setSleepEnabled(false);
       delay(100);      
-
-      setDLPFMode(GYRO_DLPF_188);
-      delay(100);
-
-    //set gyro and acc range 
-    _bus->writeByte(addr, MPU6050_RA_GYRO_CONFIG, 3 << 3); //INV_FSR_2000DPS
-    delay(15);
-    _bus->writeByte(addr, MPU6050_RA_ACCEL_CONFIG, 3 << 3);//INV_FSR_16G
-    delay(15);
-  //todo:
-  //set sample rate betaflight gyro  8khz  acc 1khz 
-  //set interupt enabled 
       return 1;
     }
 
